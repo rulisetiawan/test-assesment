@@ -6,6 +6,7 @@ use App\Models\Request;
 use App\Models\RequestDetail;
 use DB;
 use Illuminate\Http\Request as HttpRequest;
+use App\Models\Item;
 
 class RequestService
 {
@@ -63,11 +64,17 @@ class RequestService
         // Buat permintaan baru
         $request = Request::create([
             'employee_id' => $data['employee_id'],
-            'date_time' => $data['date_time'],
+            'date_time' => now(),
         ]);
-
         // Tambahkan detail permintaan
         foreach ($data['details'] as $detail) {
+            if($detail['status'] == 'tersedia'){
+                $hasil = Item::find($detail['item_id'])->stock - $detail['qty'];
+            } else {
+                $hasil = 0;
+                $detail['qty'] = $detail['qty'] -  $hasil = Item::find($detail['item_id'])->stock ;
+            }
+           
             RequestDetail::create([
                 'request_id' => $request->id,
                 'item_id' => $detail['item_id'],
@@ -75,13 +82,22 @@ class RequestService
                 'status' => $detail['status'],
                 'qty' => $detail['qty'],
             ]);
+
+            Item::where('id', $detail['item_id'])->update(['stock' => $hasil ]);
         }
         DB::commit();
-        return 'berhasil';
+        return [
+            'status' => 201,
+            'message' => 'berhasil'
+        ];
 
-        }catch (\Throwable $th) {
+        }catch (\Exception $th) {
             DB::rollback();
             throw $th;
+            return [
+                'status' => 400,
+                'message' => 'gagal'
+            ];
         }
         
     }

@@ -16,8 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('request_id')->index();
             $table->unsignedBigInteger('item_id')->index();
             $table->integer('qty');
-            $table->tinyInteger('status');
-            $table->string('description');
+            $table->string('status')->index();
+            $table->string('description')->index()->nullable();
             $table->timestamps();
             $table->foreign('request_id')->references('id')->on('requests')->onDelete('cascade');
             $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');

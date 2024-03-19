@@ -42,7 +42,7 @@ class RequestSeeder extends Seeder
                     'request_id' => $request->id,
                     'item_id' => $item->id,
                     'description' => 'Permintaan untuk ' . $item->name,
-                    'status' => true,
+                    'status' => 'tersedia',
                     'qty' => rand(1, 10)
                 ]);
             }

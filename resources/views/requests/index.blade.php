@@ -105,6 +105,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+             <div class="form-group">
                 <div class="row">
                     <div class="col-md-4">
                         <div class="mb-3">
@@ -129,22 +130,6 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="datetimepicker">Date Time</label>
-                        <div class="input-group date" id="datetimepicker" data-target-input="nearest">
-                           <input type="text" class="form-control" id="datetimepicker" placeholder="Select Date and Time">
-                            <div class="input-group-append" data-target="#datetimepicker" data-toggle="datetimepicker">
-                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                              
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
                     <table class="table-responsive nowrap itemTable form-dynamic">
                         <thead>
                             <tr>
@@ -168,7 +153,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary"  id="submitRequest" onclick="submitRequest()">Submit</button>
             </div>
         </div>
     </div>

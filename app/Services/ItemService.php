@@ -13,10 +13,10 @@ class ItemService
         $search = $request->input('search');
         $query = Item::select(
             'items.id',
-            'items.name',
+            'items.name as item_name',
             'items.stock',
             'items.unit',
-            'categories.name',
+            'categories.name as category_name',
             'locations.name',
             'locations.location_code'
         )

@@ -23,8 +23,11 @@ class PermintaanBarangController extends Controller
 
     public function store(HttpRequest $request)
     {
-        return response()->json(
-            $this->requestService->index($request)->paginate()
+        $hasil = $this->requestService->createRequest($request);
+        return response()->json([
+            'message' => $hasil['message']
+        ],$hasil['status']
+            
         );
     }
 

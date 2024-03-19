@@ -14,22 +14,22 @@
 <style>
     .itemTable th:nth-child(1),
     .itemTable td:nth-child(1) {
-        width: 150px; /* Lebar kolom untuk Nama Barang */
+        width: 150px;
     }
 
     .itemTable th:nth-child(2),
     .itemTabletd:nth-child(2) {
-        width: 100px; /* Lebar kolom untuk Lokasi Barang */
+        width: 75px;
     }
 
     .itemTable th:nth-child(3),
     .itemTable td:nth-child(3) {
-        width: 100px; /* Lebar kolom untuk Stok Barang */
+        width: 50px;
     }
 
     .itemTable th:nth-child(4),
     .itemTable td:nth-child(4) {
-        width: 150px; /* Lebar kolom untuk Kategori Barang */
+        width: 75px;
     }
 
  .form-dynamic td:nth-child(1) select,
@@ -37,54 +37,55 @@
     .form-dynamic td:nth-child(3) input,
     .form-dynamic td:nth-child(4) input,
     .form-dynamic td:nth-child(5) input {
-        width: 150px; /* Lebar untuk Nama Barang, Lokasi Barang, Stok Barang, Kategori Barang, dan Unit Barang */
+        width: 150px;
     }
 
     .form-dynamic td:nth-child(6) input {
-        width: 80px; /* Lebar untuk Quantity */
+        width: 70px;
     }
 
     .form-dynamic td:nth-child(7) input {
-        width: 150px; /* Lebar untuk Keterangan */
+        width: 100px;
     }
 
     .form-dynamic td:nth-child(8) input,
     .form-dynamic td:nth-child(9) input {
-        width: 100px; /* Lebar untuk Status dan Aksi */
+        width: 100px;
     }
 
     #modalforminputbarang th:nth-child(1),
- #modalforminputbarang td:nth-child(1) {
-    width: 100px; /* Lebar kolom untuk Nama Barang */
-}
+    #modalforminputbarang td:nth-child(1) {
+      width: 100px;
+  }
 
  #modalforminputbarang th:nth-child(2),
  #modalforminputbarang td:nth-child(2) input,
  #modalforminputbarang td:nth-child(3) input,
  #modalforminputbarang td:nth-child(4) input,
  #modalforminputbarang td:nth-child(5) input {
-    width: 75px; /* Lebar kolom untuk Lokasi Barang, Stok Barang, Kategori Barang, dan Unit Barang */
+    width: 75px;
 }
 
  #modalforminputbarang td:nth-child(6) input {
-    width: 80px; /* Lebar untuk Quantity */
+    width: 75px;
 }
  #modalforminputbarang td:nth-child(7) input {
-    width: 100px; /* Lebar untuk Keterangan */
+    width: 100px;
 }
 
- #modalforminputbarang td:nth-child(8) input,
+ #modalforminputbarang td:nth-child(8) input{
+   width: 80px;
+ }
  #modalforminputbarang td:nth-child(9) input {
-    width: 50px; /* Lebar untuk Status dan Aksi */
+    width: 60px;
 }
 .modal-content th,
 .modal-content td,
 .modal-content input,
 .modal-content select,
 .modal-content button {
-    font-size: 9px; /* Anda dapat menyesuaikan ukuran font sesuai kebutuhan */
+    font-size: 9px; 
 }
-    /* Sisanya sesuaikan dengan kebutuhan Anda */
 #button-top {
     display: flex;
     justify-content: space-between;
@@ -106,7 +107,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ url('/') }}">Nama Aplikasi Anda</a>
+            <a class="navbar-brand" href="{{ url('/') }}">PT SMM</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -221,11 +222,6 @@
     fetchRequests();
   }
 
-  // Function to submit request
-  function submitRequest() {
-    // Code to submit request
-  }
-
   // Function to edit request
   function editRequest(id) {
     // Code to edit request
@@ -273,7 +269,7 @@
         <td>${detail.stock}</td>
         <td>${detail.description}</td>
         <td>${detail.qty}</td>
-        <td>${detail.status ? 'Tersedia' : 'Tidak Tersedia'}</td>
+        <td>${detail.status}</td>
       `;
       document.getElementById('detailBody').appendChild(row);
     });
@@ -310,7 +306,7 @@
       </div>
       <div class="mb-3 item">
         <label for="quantityInput" class="form-label">Quantity</label>
-        <input type="number" class="form-control" id="quantityInput" min="1" required>
+        <input type="number" class="form-control quantity" id="quantityInput" min="1" required>
       </div>
       <div class="mb-3 item">
         <label for="keteranganInput" class="form-label">Keterangan</label>
@@ -325,46 +321,37 @@
   }
 
   // Fungsi untuk menentukan status berdasarkan kuantitas permintaan dan stok barang
-  function calculateStatus() {
+  /**function calculateStatus() {
     var quantity = document.getElementById('quantityInput').value;
     var stokBarang = document.getElementById('stokBarangInput').value;
     var statusInput = document.getElementById('statusInput');
 
     if (parseInt(quantity) <= parseInt(stokBarang)) {
-      statusInput.value = 'Tersedia';
+      statusInput.value = 'tersedia';
+    } else if(parseInt(quantity) > parseInt(stokBarang)){
+      statusInput.value = 'sebagian';
     } else {
-      statusInput.value = 'Tidak Tersedia';
+      statusInput.value = 'kosong';
     }
-  }
-
-  // Event listener untuk memanggil calculateStatus saat nilai quantityInput berubah
-  // document.getElementById('quantityInput').addEventListener('change', calculateStatus);
+  }*/
 </script>
-
 <script>
-  // Fetch employee data by employee ID
   function fetchEmployeeData() {
     var employeeId = document.getElementById('nikSelect').value;
-    if (employeeId === '') return; // Do nothing if employee ID is not selected
-
-    // Call API to get employee data by employee ID
+    if (employeeId === '') return;
     fetch(`http://localhost:9000/api/employee/${employeeId}`)
       .then(response => response.json())
       .then(data => {
-        // Populate employee name and department name fields
         document.getElementById('employeeNameInput').value = data.data.employee_name;
         document.getElementById('departmentNameInput').value = data.data.department_name;
       })
       .catch(error => console.error('Error fetching employee data:', error));
   }
 
-  // Fetch and populate employee ID dropdown options
   function fetchEmployeeIdOptions() {
-    // Call API to get list of employee IDs
     fetch('http://localhost:9000/api/employees')
       .then(response => response.json())
       .then(data => {
-        // Populate employee ID dropdown options
         var employeeIdSelect = document.getElementById('nikSelect');
         data.data.forEach(employee => {
           var option = document.createElement('option');
@@ -376,20 +363,14 @@
       .catch(error => console.error('Error fetching employee ID options:', error));
   }
 
-  // Call fetchEmployeeIdOptions function when the page loads
-
-  // Inisialisasi nomor urut untuk item
   var itemCounter = 1;
 
   // Ketika tombol "Tambah Permintaan" diklik
   $('#btnTambahPermintaan').click(function() {
-    // Tampilkan modal
     $('#modalTambahPermintaan').modal('show');
   });
 
-// Tambahkan event listener untuk tombol "Tambah Barang"
 $('#btnTambahItem').click(function() {
-    // Tambahkan baris baru ke tabel
     var newRow = `
         <tr id="itemRow-${itemCounter}">
             <td>
@@ -399,20 +380,19 @@ $('#btnTambahItem').click(function() {
                 </select>
                 <input type="hidden" class="idBarang" name="idBarang[]">
             </td>
-            <td><input type="text" class="form-control lokasiBarang" name="lokasiBarang[]" placeholder="Lokasi Barang" readonly></td>
-            <td><input type="text" class="form-control stokBarang" name="stokBarang[]" placeholder="Stok Barang" readonly></td>
-            <td><input type="text" class="form-control kategoriBarang" name="kategoriBarang[]" placeholder="Kategori Barang" readonly></td>
-            <td><input type="text" class="form-control unitBarang" name="unitBarang[]" placeholder="Unit Barang" readonly></td>
+            <td><input type="text" class="form-control lokasiBarang" name="lokasiBarang[]" placeholder="Lokasi" readonly></td>
+            <td><input type="text" class="form-control stokBarang" name="stokBarang[]" placeholder="Stok" readonly></td>
+            <td><input type="text" class="form-control kategoriBarang" name="kategoriBarang[]" placeholder="Kategori" readonly></td>
+            <td><input type="text" class="form-control unitBarang" name="unitBarang[]" placeholder="Unit" readonly></td>
             <td style="min-width: 80px;"><input type="number" class="form-control quantity" name="quantity[]" min="1" required></td>
             <td><input type="text" class="form-control keterangan" name="keterangan[]" placeholder="Keterangan"></td>
             <td><input type="text" class="form-control status" name="status[]" placeholder="Status" readonly></td>
-            <td><button type="button" class="btn btn-danger btnHapusItem" data-id="${itemCounter}">Hapus</button></td>
+            <td><button type="button" class="btn btn-sm btn-danger btnHapusItem" data-id="${itemCounter}">Hapus</button></td>
         </tr>
     `;
     $('#itemList').append(newRow);
-    itemCounter++; // Tambahkan 1 ke nomor urut item
+    itemCounter++;
 
-    // Panggil fetchItemData() untuk mengisi dropdown dengan data barang
     fetchItemData();
 });
 
@@ -434,7 +414,7 @@ function fetchItemData() {
                 data.data.forEach(item => {
                     var option = document.createElement('option');
                     option.value = item.id;
-                    option.textContent = item.name;
+                    option.textContent = item.item_name;
                     dropdown.appendChild(option);
                 });
             });
@@ -462,7 +442,7 @@ function fetchItemData() {
 
         // Buat opsi-opsi untuk setiap barang
         items.forEach(item => {
-          selectOptions += `<option value="${item.name}" data-id="${item.id}" data-location="${item.location_code}" data-stock="${item.stock}" data-category="${item.category}" data-unit="${item.unit}">${item.name}</option>`;
+          selectOptions += `<option value="${item.item_name}" data-id="${item.id}" data-location="${item.location_code}" data-stock="${item.stock}" data-category="${item.category_name}" data-unit="${item.unit}">${item.item_name}</option>`;
         });
 
         // Tambahkan opsi-opsi ke dalam dropdown select
@@ -472,13 +452,12 @@ function fetchItemData() {
         $('.namaBarang').change(function() {
           var selectedItem = $(this).find(':selected');
           var selectedRow = $(this).closest('tr');
-
-          // Isi data barang ke dalam input tersembunyi
           selectedRow.find('.idBarang').val(selectedItem.data('id'));
           selectedRow.find('.lokasiBarang').val(selectedItem.data('location'));
           selectedRow.find('.stokBarang').val(selectedItem.data('stock'));
-          selectedRow.find('.kategoriBarang').val(selectedItem.data('category'));
+          selectedRow.find('.kategoriBarang').val(selectedItem.data('category_name'));
           selectedRow.find('.unitBarang').val(selectedItem.data('unit'));
+          selectedRow.find('.quantity').val(parseInt(1));
           calculateStatus(selectedRow);
         });
       })
@@ -491,12 +470,67 @@ function fetchItemData() {
   function calculateStatus(row) {
     var quantity = row.find('.quantity').val();
     var stokBarang = row.find('.stokBarang').val();
-    var statusInput = row.find('.status');
-
     if (parseInt(quantity) <= parseInt(stokBarang)) {
-      statusInput.val('Tersedia');
+      row.find('.status').val('tersedia');
+    } else if(parseInt(quantity) > parseInt(stokBarang)){
+       row.find('.status').val('sebagian');
     } else {
-      statusInput.val('Tidak Tersedia');
+       row.find('.status').val('kosong');
+    }
+  }
+
+  function submitRequest(){
+      var confirmation = confirm('Apakah Anda yakin ingin mengirim permintaan?');
+    
+    // Jika pengguna mengonfirmasi, kirim permintaan ke server
+    if (confirmation) {
+        // Ambil nilai-nilai dari formulir
+        var nik = document.getElementById('nikSelect').value;
+        var employeeName = document.getElementById('employeeNameInput').value;
+        var departmentName = document.getElementById('departmentNameInput').value;
+
+        // Siapkan data barang
+        var items = [];
+        var itemRows = document.querySelectorAll('#itemList tr');
+        itemRows.forEach(function(row) {
+            var item = {
+                item_id: row.querySelector('.idBarang').value,
+                qty: row.querySelector('.quantity').value,
+                description: row.querySelector('.keterangan').value,
+                status: row.querySelector('.status').value
+            };
+            items.push(item);
+        });
+
+        // Siapkan data untuk dikirim ke server
+        var requestData = {
+            employee_id: nik,
+            employeeName: employeeName,
+            departmentName: departmentName,
+            details: items
+        };
+        console.log('requestData' + JSON.stringify(requestData));
+        // Kirim data ke server menggunakan AJAX
+        fetch('http://localhost:9000/api/request', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Handle response from server
+            // Tampilkan alert sukses
+            alert('Permintaan berhasil dikirim!');
+        })
+        .catch(error => {
+            // Handle any errors
+            console.error('Error:', error);
+        });
+    } else {
+        // Jika pengguna membatalkan, tidak ada tindakan yang diambil
+        console.log('Permintaan dibatalkan');
     }
   }
 
@@ -507,7 +541,9 @@ function fetchItemData() {
   });
     fetchRequests();
     window.addEventListener('click', fetchEmployeeIdOptions);
-window.addEventListener('click', fetchItemData);
+    window.addEventListener('click', fetchItemData);
+
+
 </script>
 
 </body>
