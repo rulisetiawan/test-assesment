@@ -5,10 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Permintaan Barang</title>
-    <!-- Memanggil Bootstrap CSS dari CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css" integrity="sha512-bYPO5jmStZ9WI2602V2zaivdAnbAhtfzmxnEGh9RwtlI00I9s8ulGe4oBa5XxiC6tCITJH/QG70jswBhbLkxPw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <style>
@@ -91,7 +89,7 @@
     justify-content: space-between;
 }
 .footer {
- position:fixed;
+  position:fixed;
   bottom: 0;
   width: 100%;
   background-color: #f8f9fa;
@@ -116,7 +114,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('/') }}">Home</a>
                     </li>
-                    <!-- Add more navigation items as needed -->
                 </ul>
             </div>
         </div>
@@ -137,28 +134,23 @@
     <script>
         $(document).ready(function () {
             $('#datetimepicker').datetimepicker({
-                format: 'YYYY-MM-DD HH:mm:ss' // Atur format date-time sesuai kebutuhan Anda
+                format: 'YYYY-MM-DD HH:mm:ss'
             });
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
    <script>
-  // Pagination variables
   const itemsPerPage = 5;
   let currentPage = 1;
   let totalItems = 0;
   let totalPages = 0;
 
-  // Search variables
   let searchQuery = '';
-
-  // Function to fetch requests
   function fetchRequests() {
     let apiUrl = '/api/requests?page=' + currentPage + '&perPage=' + itemsPerPage + '&search=' + searchQuery;
 
     axios.get(apiUrl)
       .then(function(response) {
-        // Handle success
         let requests = response.data.data;
         totalItems = response.data.total;
         totalPages = Math.ceil(totalItems / itemsPerPage);
@@ -177,22 +169,15 @@
             <td>${request.jumlah_item}</td>
             <td>
                <button type="button" class="btn btn-primary" onclick="fetchDataAndShowModal(${request.id})">View</button>
-               <button type="button" class="btn btn-warning" onclick="editRequest(${request.id})">Edit</button>
-               <button type="button" class="btn btn-danger" onclick="deleteRequest(${request.id})">Delete</button>
             </td>
           `;
         });
-
-        // Render pagination
         renderPagination();
       })
       .catch(function(error) {
-        // Handle error
-       // console.error('Error fetching data:', error);
       });
   }
 
-  // Function to render pagination
   function renderPagination() {
     let pagination = document.getElementById('pagination');
     pagination.innerHTML = '';
@@ -210,41 +195,30 @@
     }
   }
 
-  // Function to handle page change
   function changePage(page) {
     currentPage = page;
     fetchRequests();
   }
 
-  // Function to handle search
   function search() {
     searchQuery = document.getElementById('searchInput').value;
     fetchRequests();
   }
 
-  // Function to edit request
   function editRequest(id) {
-    // Code to edit request
   }
 
-  // Function to delete request
   function deleteRequest(id) {
-    // Code to delete request
   }
 
   function fetchDataAndShowModal(id) {
-    // Ganti URL dengan URL API Anda
     const apiUrl = 'http://localhost:9000/api/requests/'+id;
-
-    // Permintaan GET ke API
     axios.get(apiUrl)
       .then(function(response) {
-        // Handle success
         const data = response.data;
-        showDetailModal(data); // Menampilkan modal detail dengan data dari API
+        showDetailModal(data);
       })
       .catch(function(error) {
-        // Handle error
         console.error('Error fetching data:', error);
       });
   }
@@ -273,69 +247,11 @@
       `;
       document.getElementById('detailBody').appendChild(row);
     });
-
-    // Show modal
     var myModal = new bootstrap.Modal(document.getElementById('detailModal'));
     myModal.show();
   }
-</script>
 
-<script>
-  // Fungsi untuk menambah field untuk barang baru
-  function addNewItem() {
-    var newItemHtml = `
-      <div class="mb-3 item">
-        <label for="namaBarangInput" class="form-label">Nama Barang</label>
-        <input type="text" class="form-control" id="namaBarangInput" placeholder="Nama Barang" autocomplete="off">
-      </div>
-      <div class="mb-3 item">
-        <label for="lokasiBarangInput" class="form-label">Lokasi Barang</label>
-        <input type="text" class="form-control" id="lokasiBarangInput" readonly>
-      </div>
-      <div class="mb-3 item">
-        <label for="stokBarangInput" class="form-label">Stok Barang</label>
-        <input type="text" class="form-control" id="stokBarangInput" readonly>
-      </div>
-      <div class="mb-3 item">
-        <label for="kategoriBarangInput" class="form-label">Kategori Barang</label>
-        <input type="text" class="form-control" id="kategoriBarangInput" readonly>
-      </div>
-      <div class="mb-3 item">
-        <label for="unitBarangInput" class="form-label">Unit Barang</label>
-        <input type="text" class="form-control" id="unitBarangInput" readonly>
-      </div>
-      <div class="mb-3 item">
-        <label for="quantityInput" class="form-label">Quantity</label>
-        <input type="number" class="form-control quantity" id="quantityInput" min="1" required>
-      </div>
-      <div class="mb-3 item">
-        <label for="keteranganInput" class="form-label">Keterangan</label>
-        <input type="text" class="form-control" id="keteranganInput">
-      </div>
-      <div class="mb-3 item">
-        <label for="statusInput" class="form-label">Status</label>
-        <input type="text" class="form-control" id="statusInput" readonly>
-      </div>
-    `;
-    document.getElementById('itemsContainer').insertAdjacentHTML('beforeend', newItemHtml);
-  }
 
-  // Fungsi untuk menentukan status berdasarkan kuantitas permintaan dan stok barang
-  /**function calculateStatus() {
-    var quantity = document.getElementById('quantityInput').value;
-    var stokBarang = document.getElementById('stokBarangInput').value;
-    var statusInput = document.getElementById('statusInput');
-
-    if (parseInt(quantity) <= parseInt(stokBarang)) {
-      statusInput.value = 'tersedia';
-    } else if(parseInt(quantity) > parseInt(stokBarang)){
-      statusInput.value = 'sebagian';
-    } else {
-      statusInput.value = 'kosong';
-    }
-  }*/
-</script>
-<script>
   function fetchEmployeeData() {
     var employeeId = document.getElementById('nikSelect').value;
     if (employeeId === '') return;
@@ -395,22 +311,13 @@ $('#btnTambahItem').click(function() {
 
     fetchItemData();
 });
-
-
-// Fungsi untuk mengambil dan menambahkan data barang ke dropdown
 function fetchItemData() {
      fetch('http://localhost:9000/api/items')
         .then(response => response.json())
         .then(data => {
-            // Ambil semua elemen dropdown namaBarang
             var dropdowns = document.querySelectorAll('.namaBarang');
-
-            // Iterasi melalui setiap dropdown dan tambahkan opsi-opsi barang
             dropdowns.forEach(dropdown => {
-                // Hapus opsi-opsi yang ada sebelumnya
                 dropdown.innerHTML = '';
-
-                // Buat opsi-opsi baru untuk setiap barang
                 data.data.forEach(item => {
                     var option = document.createElement('option');
                     option.value = item.id;
@@ -422,15 +329,10 @@ function fetchItemData() {
         .catch(error => console.error('Error fetching item data:', error));
 
 }
-
-
-  // Ketika tombol "Hapus" pada item diklik
   $(document).on('click', '.btnHapusItem', function() {
     var itemId = $(this).data('id');
-    $('#itemRow-' + itemId).remove(); // Hapus baris dari tabel
+    $('#itemRow-' + itemId).remove(); 
   });
-
-  // Fungsi untuk mengisi data barang setelah memilih dari dropdown
   $(document).on('change', '.namaBarang', function() {
     var selectedRow = $(this).closest('tr');
     var namaBarang = $(this).val();
@@ -439,16 +341,10 @@ function fetchItemData() {
       .then(response => {
         var items = response.data.data;
         var selectOptions = '';
-
-        // Buat opsi-opsi untuk setiap barang
         items.forEach(item => {
           selectOptions += `<option value="${item.item_name}" data-id="${item.id}" data-location="${item.location_code}" data-stock="${item.stock}" data-category="${item.category_name}" data-unit="${item.unit}">${item.item_name}</option>`;
         });
-
-        // Tambahkan opsi-opsi ke dalam dropdown select
         $('.namaBarang').html(selectOptions);
-
-        // Tambahkan event listener untuk mengisi data barang saat dipilih
         $('.namaBarang').change(function() {
           var selectedItem = $(this).find(':selected');
           var selectedRow = $(this).closest('tr');
@@ -465,8 +361,6 @@ function fetchItemData() {
         console.error('Error fetching data:', error);
       });
   });
-
-  // Fungsi untuk menghitung status berdasarkan kuantitas permintaan dan stok barang
   function calculateStatus(row) {
     var quantity = row.find('.quantity').val();
     var stokBarang = row.find('.stokBarang').val();
@@ -481,15 +375,10 @@ function fetchItemData() {
 
   function submitRequest(){
       var confirmation = confirm('Apakah Anda yakin ingin mengirim permintaan?');
-    
-    // Jika pengguna mengonfirmasi, kirim permintaan ke server
     if (confirmation) {
-        // Ambil nilai-nilai dari formulir
         var nik = document.getElementById('nikSelect').value;
         var employeeName = document.getElementById('employeeNameInput').value;
         var departmentName = document.getElementById('departmentNameInput').value;
-
-        // Siapkan data barang
         var items = [];
         var itemRows = document.querySelectorAll('#itemList tr');
         itemRows.forEach(function(row) {
@@ -501,16 +390,12 @@ function fetchItemData() {
             };
             items.push(item);
         });
-
-        // Siapkan data untuk dikirim ke server
         var requestData = {
             employee_id: nik,
             employeeName: employeeName,
             departmentName: departmentName,
             details: items
         };
-        console.log('requestData' + JSON.stringify(requestData));
-        // Kirim data ke server menggunakan AJAX
         fetch('http://localhost:9000/api/request', {
             method: 'POST',
             headers: {
@@ -520,21 +405,16 @@ function fetchItemData() {
         })
         .then(response => response.json())
         .then(data => {
-            // Handle response from server
-            // Tampilkan alert sukses
-            alert('Permintaan berhasil dikirim!');
+            alert('Permintaan berhasil dibuat!');
         })
         .catch(error => {
-            // Handle any errors
             console.error('Error:', error);
         });
     } else {
-        // Jika pengguna membatalkan, tidak ada tindakan yang diambil
         console.log('Permintaan dibatalkan');
     }
   }
 
-  // Event listener untuk memanggil calculateStatus saat nilai quantityInput berubah
   $(document).on('change', '.quantity', function() {
     var row = $(this).closest('tr');
     calculateStatus(row);
@@ -542,7 +422,6 @@ function fetchItemData() {
     fetchRequests();
     window.addEventListener('click', fetchEmployeeIdOptions);
     window.addEventListener('click', fetchItemData);
-
 
 </script>
 

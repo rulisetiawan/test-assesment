@@ -4,19 +4,18 @@
 <div class="container">
     <h1 class="mt-5 mb-4">List Permintaan Barang</h1>
 
-    <!-- Search bar -->
 <div class="flex" id="button-top">
   <div class="col-md-4">
     <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Search..." aria-label="Search" aria-describedby="basic-addon2" id="searchInput">
+        <input type="text" class="form-control" placeholder="Cari nama karyawan.." aria-label="Cari" aria-describedby="basic-addon2" id="searchInput">
         <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button" id="searchButton">Search</button>
+            <button class="btn btn-outline-secondary" type="button" id="searchButton" onclick="search()">Cari</button>
         </div>
     </div>
   </div>
   <div class="col-md-4">
         <!-- Button for making request -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#requestModal">Buat Permintaan Barang</button>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#requestModal"><i class="fas fa-plus"></i> Permintaan Barang</button>
   </div>
 </div>
 
@@ -24,12 +23,12 @@
         <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Employee NIK</th>
-                <th scope="col">Employee Name</th>
-                <th scope="col">Department Name</th>
-                <th scope="col">Request Date</th>
-                <th scope="col">Jumlah Item</th>
-                <th scope="col">Action</th>
+                <th scope="col">NIK</th>
+                <th scope="col">Nama</th>
+                <th scope="col">Departement</th>
+                <th scope="col">Tanggal Permintaan</th>
+                <th scope="col">Jumlah</th>
+                <th scope="col">Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -57,25 +56,25 @@
             <div class="modal-body">
                 <div class="row mb-3">
                     <div class="col-md-6">
-                        <strong>Date Time:</strong> <span id="dateTime"></span>
+                        <strong>Tanggal Permintaan:</strong> <span id="dateTime"></span>
                     </div>
                     <div class="col-md-6">
-                        <strong>Employee NIK:</strong> <span id="employeeNik"></span>
+                        <strong>NIK:</strong> <span id="employeeNik"></span>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
-                        <strong>Employee Name:</strong> <span id="employeeName"></span>
+                        <strong>Nama:</strong> <span id="employeeName"></span>
                     </div>
                     <div class="col-md-6">
-                        <strong>Department Name:</strong> <span id="departmentName"></span>
+                        <strong>Departmen:</strong> <span id="departmentName"></span>
                     </div>
                 </div>
                 <table class="table">
                     <thead>
                         <tr>
                             <th scope="col">Nama Barang</th>
-                            <th scope="col">category</th>
+                            <th scope="col">kategori</th>
                             <th scope="col">Lokasi</th>
                             <th scope="col">Stok</th>
                             <th scope="col">Keterangan</th>
@@ -84,24 +83,21 @@
                         </tr>
                     </thead>
                     <tbody id="detailBody">
-                        <!-- Data will be inserted here -->
                     </tbody>
                 </table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Modal for creating request -->
-<!-- Modal untuk form permintaan barang -->
 <div class="modal fade modal-xl" id="requestModal" tabindex="-1" aria-labelledby="requestModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-75"> <!-- Mengatur ukuran modal menjadi 75% -->
+    <div class="modal-dialog modal-lg modal-75"> 
         <div class="modal-content" id="modalforminputbarang">
             <div class="modal-header">
-                <h5 class="modal-title" id="requestModalLabel">Form Permintaan Barang</h5>
+                <h5 class="modal-title" id="requestModalLabel">Formulir Permintaan Barang</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -109,7 +105,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="mb-3">
-                            <label for="nikSelect" class="form-label">NIK</label>
+                            <label for="nikSelect" class="form-label-sm">NIK</label>
                             <select class="form-select" id="nikSelect" onchange="fetchEmployeeData()">
                                 <option value="">Pilih NIK</option>
                             </select>
@@ -118,14 +114,14 @@
 
                     <div class="col-md-4">
                         <div class="mb-3 ">
-                            <label for="employeeNameInput" class="form-label">Employee Name</label>
+                            <label for="employeeNameInput" class="form-label">Nama</label>
                             <input type="text" class="form-control" id="employeeNameInput" readonly>
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="mb-3">
-                            <label for="departmentNameInput" class="form-label">Department Name</label>
+                            <label for="departmentNameInput" class="form-label">Departemen</label>
                             <input type="text" class="form-control" id="departmentNameInput" readonly>
                         </div>
                     </div>
@@ -148,7 +144,7 @@
                             <!-- Isi formulir disini -->
                         </tbody>
                     </table>
-                    <button type="button" class="btn btn-primary" id="btnTambahItem">Tambah Barang</button>
+                    <button type="button" class="btn btn-primary" id="btnTambahItem"><i class="fas fa-plus"></i> Barang</button>
                 </div>
             </div>
             <div class="modal-footer">
